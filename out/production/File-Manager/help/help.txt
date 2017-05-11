@@ -1,0 +1,8 @@
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<THIS IS THE HELP FILE>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+usage: Manage the files and folders. Like create files, create folder, change permission of a file, etc...
+
+Mandatory arguments to long options are mandatory for short options too.
+
+-h, --help     display this help and exit
+
