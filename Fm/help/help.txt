@@ -1,1 +1,20 @@
-Hello
+Description: Manage Files and Directories. Like List Directories, Make/Delete Files/Directories, Change permission of a file and make a Symbolic Link, etc...
+
+Usage: fm [OPTION] ... [PATH]
+   or: fm [OPTION] ... [MODE]... [PATH]
+   or: fm [OPTION] ... [TARGET]... [DIRECTORY]
+
+Mandatory arguments to long options are mandatory for short options too.
+
+-h, --help             display this help and exit
+
+-l, --list             List files and Directories
+
+-c, --changepermission Change Permission of a file
+
+-mf, --makefile        Make a new File
+-md, --makedir         Make a new Directory
+-rf, --removefile      Remove a File
+-rd, --removedir       Remove a Directory
+
+-sl, --symboliclink    Make a symbolic link

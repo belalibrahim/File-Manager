@@ -3,22 +3,56 @@
 .TH FM "1" "May 2017" "GNU GPL" "User Commands"
 
 .SH NAME
-fm \- blab blab blah
+fm \- Manage files and directories
 
 .SH SYNOPSIS
 .B fm
-blab blab blah ... blab blab blah
+[\fI\,OPTION\/\fR]... [\fI\,PATH\/\fR]
+.br
+.B fm
+[\fI\,OPTION\/\fR]... [\fI\,MODE\/\fR]... [\fI\,PATH\/\fR]
+.br
+.B fm
+[\fI\,OPTION\/\fR]... [\fI\,TARGET\/\fR]... [\fI\,DIRECTORY\/\fR]
 
 .SH DESCRIPTION
 
 .PP
-blab blab blah.
-.PP
-blab blab blah.
+List Directories, Make/Delete Files/Directories, Change permission of a file and make a Symbolic Link.
+
+.SH ARGUMENTS
 
 .TP
 \fB\-h\fR, \fB\-\-help\fR
-display this help and exit
+display the help and exit
+
+.TP
+\fB\-l\fR, \fB\-\-list\fR
+List files and Directories
+
+.TP
+\fB\-c\fR, \fB\-\-changepermission\fR
+Change Permission of a file
+
+.TP
+\fB\-mf\fR, \fB\-\-makefile\fR
+Make a new File
+
+.TP
+\fB\-md\fR, \fB\-\-makedir\fR
+Make a new Directory
+
+.TP
+\fB\-rf\fR, \fB\-\-removefile\fR
+Remove a File
+
+.TP
+\fB\-rd\fR, \fB\-\-removedir\fR
+Remove a Directory
+
+.TP
+\fB\-sl\fR, \fB\-\-symboliclink\fR
+Make a symbolic link
 
 .SH COPYRIGHT
 Copyright \(co 2016 Free Software Foundation, Inc.

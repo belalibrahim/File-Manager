@@ -98,7 +98,7 @@ public class FileManager {
         return result;
     }
 
-    public String delFile(String path){
+    public String rmFile(String path){
 
         try {
             process = runtime.exec("rm " + path);
@@ -109,7 +109,7 @@ public class FileManager {
                 result += "\n" +  line;
 
             if(result.equals(""))
-                result = "The file successfully deleted!";
+                result = "The file successfully removed!";
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -118,7 +118,7 @@ public class FileManager {
         return result;
     }
 
-    public String delFolder(String path){
+    public String rmFolder(String path){
 
         try {
             process = runtime.exec("rmdir " + path);
@@ -129,7 +129,7 @@ public class FileManager {
                 result += "\n" +  line;
 
             if(result.equals(""))
-                result = "The folder successfully deleted!";
+                result = "The folder successfully removed!";
         } catch (IOException e) {
             e.printStackTrace();
         }

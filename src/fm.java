@@ -44,14 +44,14 @@ public class fm {
                     System.out.println(fm.mkFolder(args[1]));
 
                     //DELETE FILE ARGUMENTS
-                }else if((args[0].equals("-df") || args[0].equals("--deletefile"))){
+                }else if((args[0].equals("-rf") || args[0].equals("--removefile"))){
 
-                    System.out.println(fm.delFile(args[1]));
+                    System.out.println(fm.rmFile(args[1]));
 
                     //DELETE DIRECTORY ARGUMENTS
-                }else if((args[0].equals("-dd") || args[0].equals("--deletedir"))){
+                }else if((args[0].equals("-rd") || args[0].equals("--removedir"))){
 
-                    System.out.println(fm.delFolder(args[1]));
+                    System.out.println(fm.rmFolder(args[1]));
 
                     //SYMBOLIC LINK ARGUMENTS
                 }else if((args[0].equals("-sl") || args[0].equals("--symboliclink"))){
@@ -134,14 +134,14 @@ public class fm {
                                 System.out.println("Enter the file path you want to delete.");
                                 System.out.print("$ ");
                                 path = input.next();
-                                System.out.println(fm.delFile(path));
+                                System.out.println(fm.rmFile(path));
                                 break;
 
                             case 4:
                                 System.out.println("Enter the folder path you want to delete.");
                                 System.out.print("$ ");
                                 path = input.next();
-                                System.out.println(fm.delFolder(path));
+                                System.out.println(fm.rmFolder(path));
                                 break;
 
                             default:
