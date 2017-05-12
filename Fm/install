@@ -8,7 +8,7 @@ gzip /usr/share/man/man1/fm.1
 
 mkdir /opt/File-Manager
 mkdir /opt/File-Manager/help
-cp File-Manager.jar /opt/File-Manager/file-manager.jar
+cp File-Manager.dat /opt/File-Manager/file-manager.jar
 cp help/help.txt /opt/File-Manager/help/help.txt
 echo "java -jar /opt/File-Manager/file-manager.jar \"\$@\" " > /usr/bin/fm
 chmod a+x /usr/bin/fm
