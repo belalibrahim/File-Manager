@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class fm {
     public static void main(String[] args) {
         FileManager fm = new FileManager();
-        String helpPath = System.getProperty("user.dir") + "/help/help.txt";
+        String helpPath = "/opt/File-Manager/help/help.txt";
         if(args.length !=0 && (args[0].equals("-h") || args[0].equals("--help"))){
 
                 //TODO
