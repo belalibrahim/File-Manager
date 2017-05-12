@@ -7,12 +7,66 @@ public class fm {
     public static void main(String[] args) {
         FileManager fm = new FileManager();
         String helpPath = System.getProperty("user.dir") + "/help/help.txt";
-        if(args.length !=0 && (args[0].equals("-h") || args[0].equals("--help"))){
+        if(args.length !=0){
+
+            //HELP ARGUMENTS
+            if((args[0].equals("-h") || args[0].equals("--help"))) {
 
                 //TODO
                 System.out.println(fm.help(helpPath));
 
+                //LIST ARGUMENTS
+            }else if(args.length > 1){
 
+                if((args[0].equals("-l") || args[0].equals("--list"))){
+
+                    System.out.println(fm.listDir(args[1]));
+
+                    //CHANGE PERMISSION ARGUMENTS
+                }else if((args[0].equals("-c") || args[0].equals("--changepermission"))){
+
+                    if(args.length > 2) {
+
+                        System.out.println(fm.changePermission(Integer.parseInt(args[1]), args[2]));
+
+                    }else
+                        System.out.println("Invalid argument!");
+
+                    //MAKE FILE ARGUMENTS
+                }else if((args[0].equals("-mf") || args[0].equals("--makefile"))){
+
+                    System.out.println(fm.mkFile(args[1]));
+
+                    //MAKE DIRECTORY ARGUMENTS
+                }else if((args[0].equals("-md") || args[0].equals("--makedir"))){
+
+                    System.out.println(fm.mkFolder(args[1]));
+
+                    //DELETE FILE ARGUMENTS
+                }else if((args[0].equals("-df") || args[0].equals("--deletefile"))){
+
+                    System.out.println(fm.delFile(args[1]));
+
+                    //DELETE DIRECTORY ARGUMENTS
+                }else if((args[0].equals("-dd") || args[0].equals("--deletedir"))){
+
+                    System.out.println(fm.delFolder(args[1]));
+
+                    //SYMBOLIC LINK ARGUMENTS
+                }else if((args[0].equals("-sl") || args[0].equals("--symboliclink"))){
+
+                    if(args.length > 2) {
+
+                        System.out.println(fm.mkLink(args[1], args[2]));
+
+                    }else
+                        System.out.println("Invalid argument!");
+
+                }
+
+            }else
+
+                System.out.println("ERROR: Invalid argument(s)!");
 
         }else {
 
@@ -101,7 +155,7 @@ public class fm {
                         System.out.println("Enter the path you want to link the file in.");
                         System.out.print("$ ");
                         path = input.next();
-                        System.out.println(fm.mkLink(path, fpath));
+                        System.out.println(fm.mkLink(fpath, path));
                         break;
 
                     case "E":
