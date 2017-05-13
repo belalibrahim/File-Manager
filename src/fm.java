@@ -1,10 +1,15 @@
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
 import java.util.Scanner;
 
 /**
  * Created by billy on 4/30/17.
  */
-public class fm {
+public class fm extends Application{
     public static void main(String[] args) {
+        launch(args);
         FileManager fm = new FileManager();
         String helpPath = "help/help.txt";
         if(args.length !=0 && (args[0].equals("-h") || args[0].equals("--help"))){
@@ -112,5 +117,14 @@ public class fm {
                 }
             } while (!selection.equals("E"));
         }
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        primaryStage.setTitle("File Manager");
+        FileManagerGui gui=new FileManagerGui();
+        Scene Sc=new Scene(gui,800,500);
+        primaryStage.setScene(Sc);
+        primaryStage.show();
     }
 }
