@@ -9,6 +9,7 @@ public class FileManager {
     private Runtime runtime;
     private Process process;
     private BufferedReader input;
+    private BufferedReader error;
     private String line;
     private String result;
 
@@ -24,7 +25,6 @@ public class FileManager {
 
         try {
             process = runtime.exec("ls " + path);
-
             input = new BufferedReader(new InputStreamReader(process.getInputStream()));
             result = "";
             while ((line = input.readLine()) != null)
@@ -34,16 +34,23 @@ public class FileManager {
             e.printStackTrace();
         }
         if(result.equals(""))
-            result = "no such directory";
+            result = "No such directory!";
 
         return result;
     }
 
     public String changePermission(int permission, String path){
 
-        //TODO
         try {
             process = runtime.exec("chmod " + permission + " " + path);
+            error = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+            result = "";
+
+            while ((line = error.readLine()) != null)
+                result += "\n" +  line;
+
+            if(result.equals(""))
+                System.out.println("The permission of the file successfully changed!");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -55,7 +62,16 @@ public class FileManager {
 
         try {
             process = runtime.exec("touch " + path);
-            result = "The file successfully created!";
+
+            error = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+            result = "";
+
+            while ((line = error.readLine()) != null)
+                result += "\n" +  line;
+
+            if(result.equals(""))
+                result = "The file successfully created!";
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -67,7 +83,14 @@ public class FileManager {
 
         try {
             process = runtime.exec("mkdir " + path);
-            result = "The folder successfully created!";
+            error = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+            result = "";
+
+            while ((line = error.readLine()) != null)
+                result += "\n" +  line;
+
+            if(result.equals(""))
+                result = "The folder successfully created!";
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -75,11 +98,19 @@ public class FileManager {
         return result;
     }
 
-    public String delFile(String path){
+    public String rmFile(String path){
 
         try {
             process = runtime.exec("rm " + path);
-            result = "The file successfully deleted!";
+            error = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+            result = "";
+
+            while ((line = error.readLine()) != null)
+                result += "\n" +  line;
+
+            if(result.equals(""))
+                result = "The file successfully removed!";
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -87,28 +118,43 @@ public class FileManager {
         return result;
     }
 
-    public String delFolder(String path){
+    public String rmFolder(String path){
 
         try {
             process = runtime.exec("rmdir " + path);
-            result = "The folder successfully deleted!";
+            error = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+            result = "";
+
+            while ((line = error.readLine()) != null)
+                result += "\n" +  line;
+
+            if(result.equals(""))
+                result = "The folder successfully removed!";
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         return result;
     }
-    public String mkLink(String path, String fpath){
+    public String mkLink(String fpath, String path){
 
         try {
             process = runtime.exec("ln -s " + fpath + " " + path);
-            result = "The file is linked successfully!";
+            error = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+            result = "";
+
+            while ((line = error.readLine()) != null)
+                result += "\n" +  line;
+
+            if(result.equals(""))
+                result = "The file is linked successfully!";
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         return result;
     }
+
     public String help(String fpath){
         try {
             process = runtime.exec("less " + fpath);
@@ -122,7 +168,7 @@ public class FileManager {
             e.printStackTrace();
         }
         if(result.equals(""))
-            result = "no such directory";
+            result = "No such directory!";
 
         return result;
     }

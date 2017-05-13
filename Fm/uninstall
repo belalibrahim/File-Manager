@@ -1,0 +1,12 @@
+#!/bin/bash
+if [[ $EUID -ne 0 ]]; then
+   echo "need root privilege" 
+   exit 1
+fi
+
+
+rm /usr/share/man/man1/fm.1.gz
+
+rm -rf /opt/File-Manager
+
+rm /usr/bin/fm
