@@ -1,7 +1,0 @@
-How to run the program on the terminal
---------------------------------------
-1)Run the project on the IDE to compile
-2)Go to "out/production/FileManager"
-3)Type on the terminal "java fm"
-
-4)If you want to run the help just type "java fm -h" or "java fm --help"
