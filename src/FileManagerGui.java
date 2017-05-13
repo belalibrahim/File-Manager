@@ -71,7 +71,7 @@ private int x=0;
                  Hb.getChildren().addAll(path,textField);
                  borderpane.setTop(Hb);
                  this.x=2;
-             }if(s.contains(" TreeItem [ value: delete file ]")){
+             }if(s.contains("TreeItem [ value: delete file ]")){
                  borderpane.setTop(null);
                  borderpane.setCenter(null);
                  Hb.getChildren().clear();
@@ -129,17 +129,19 @@ private int x=0;
             borderpane.setCenter(Output);
         }if(this.x==3){
                 borderpane.setCenter(null);
-                Output.setText(fm.delFile(textField.getText().toString()));
+                Output.setText(fm.rmFile(textField.getText().toString()));
                 borderpane.setCenter(Output);
             }
             if(this.x==4){
                 borderpane.setCenter(null);
-                Output.setText(fm.delFolder(textField.getText().toString()));
+                Output.setText(fm.rmFolder(textField.getText().toString()));
                 borderpane.setCenter(Output);
             }if(this.x==5){
                 borderpane.setCenter(null);
-                Output.setText(fm.changePermission(Integer.parseInt(textField.getText().toString()),pertextField.getText().toString()));
-                borderpane.setCenter(Output);
+                String s=pertextField.getText().toString();
+                if(!s.equals("")) {
+                    Output.setText(fm.changePermission(Integer.parseInt(pertextField.getText().toString()), textField.getText().toString()));
+                }          borderpane.setCenter(Output);
             }if(this.x==6){
                 borderpane.setCenter(null);
                 Output.setText(fm.mkLink(textField.getText().toString(), pertextField.getText().toString()));
@@ -195,7 +197,103 @@ private int x=0;
             }
             else{
                 status.setText("plz choose an option or fill path");
-            }
+            }else {
+
+            String selection;
+            String path;
+
+            Scanner input = new Scanner(System.in);
+
+            System.out.println("<<<<<<<<<<<<<<<FILE MANAGER>>>>>>>>>>>>>>>");
+
+            do {
+
+                System.out.println("\nPress 'A' to List files/directories.\n" +
+                        "Press 'B' to Change permissions of files.\n" +
+                        "Press 'C' to Make/delete files/directories.\n" +
+                        "Press 'D' to Create symbolic link files.\n" +
+                        "Press 'E' to Exit.");
+                System.out.print("$ ");
+                selection = input.next().toUpperCase();
+
+                switch (selection) {
+                    case "A":
+                        System.out.println("Enter the path you want to list.");
+                        System.out.print("$ ");
+                        path = input.next();
+                        System.out.println(fm.listDir(path));
+                        break;
+
+                    case "B":
+                        System.out.println("Enter the type of permission in decimal.");
+                        System.out.print("$ ");
+                        int permission = input.nextInt();
+                        System.out.println("Enter the file path you want to change permission.");
+                        System.out.print("$ ");
+                        path = input.next();
+                        System.out.println(fm.changePermission(permission, path));
+                        break;
+
+                    case "C":
+                        System.out.println("Press 1 to make a file.\n" +
+                                "Press 2 to make a folder.\n" +
+                                "Press 3 to delete a file.\n" +
+                                "Press 4 to delete a folder");
+
+                        System.out.print("$ ");
+                        int option = input.nextInt();
+
+                        switch (option) {
+                            case 1:
+                                System.out.println("Enter the file path you want to make in.");
+                                System.out.print("$ ");
+                                path = input.next();
+                                System.out.println(fm.mkFile(path));
+                                break;
+
+                            case 2:
+                                System.out.println("Enter the folder path you want to make in.");
+                                System.out.print("$ ");
+                                path = input.next();
+                                System.out.println(fm.mkFolder(path));
+                                break;
+
+                            case 3:
+                                System.out.println("Enter the file path you want to delete.");
+                                System.out.print("$ ");
+                                path = input.next();
+                                System.out.println(fm.rmFile(path));
+                                break;
+
+                            case 4:
+                                System.out.println("Enter the folder path you want to delete.");
+                                System.out.print("$ ");
+                                path = input.next();
+                                System.out.println(fm.rmFolder(path));
+                                break;
+
+                            default:
+                                System.out.println("Error!");
+                        }
+                        break;
+
+                    case "D":
+                        System.out.println("Enter the file path you want to link.");
+                        System.out.print("$ ");
+                        String fpath = input.next();
+                        System.out.println("Enter the path you want to link the file in.");
+                        System.out.print("$ ");
+                        path = input.next();
+                        System.out.println(fm.mkLink(fpath, path));
+                        break;
+
+                    case "E":
+                        break;
+
+                    default:
+                        System.out.println("Error!");
+                }
+            } while (!selection.equals("E"));
         });
 
  */
