@@ -10,7 +10,7 @@ import java.util.Scanner;
  */
 public class fm extends Application{
     public static void main(String[] args) {
-        launch(args);
+
         FileManager fm = new FileManager();
         String helpPath = "/opt/File-Manager/help/help.txt";
 
@@ -75,8 +75,12 @@ public class fm extends Application{
 
                 System.out.println("ERROR: Invalid argument(s)!");
 
+            System.exit(1);
         }
+        else{
+            launch(args);
         }
+    }
 
 
     @Override
@@ -85,6 +89,7 @@ public class fm extends Application{
         FileManagerGui gui=new FileManagerGui();
         Scene Sc=new Scene(gui,800,500);
         primaryStage.setScene(Sc);
+        primaryStage.setResizable(false);
         primaryStage.show();
         primaryStage.setOnCloseRequest( e -> {
             Platform.exit();

@@ -1,7 +1,9 @@
-import javafx.geometry.Pos;
+import javafx.geometry.*;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -27,34 +29,35 @@ private int x=0;
     HBox Hb=new HBox();
     Label path=new Label("path : ");
     TextField textField=new TextField();
-    textField.setMinWidth(500);
+    textField.setMinWidth(400);
     Label permission=new Label("permission : ");
     TextField pertextField=new TextField();
-    pertextField.setMinWidth(500);
+    pertextField.setMinWidth(400);
     Label Output=new Label();
     Label status=new Label();
     TreeItem<String>root,makeDir;
     root =new TreeItem<>();
     root.setExpanded(true);
-    makeBranch("List Files",root);
-    makeDir=makeBranch("make/delete directories",root);
+    makeBranch("List files/directories",root);
+    makeDir=makeBranch("Make/delete files/directories",root);
     makeBranch("make file",makeDir);
     makeBranch("make folder",makeDir);
     makeBranch("delete file",makeDir) ;
     makeBranch("delete folder",makeDir);
-    makeBranch("change permissons",root);
-    makeBranch(" create symbolic",root);
+    makeBranch("Change permissions of files",root);
+    makeBranch("Create symbolic link files",root);
     TreeView tree =new TreeView<>(root);
     tree.setShowRoot(false);
         tree.setMaxHeight(200);
         tree.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue)->{
          if(newValue!=null){
              String s = v.getValue().toString();
-             if(s.contains("TreeItem [ value: List Files ]")){
+             if(s.contains("TreeItem [ value: List files/directories ]")){
                  borderpane.setTop(null);
                  borderpane.setCenter(null);
                  Hb.getChildren().clear();
                  Hb.getChildren().addAll(path,textField);
+                 status.setText("Enter the path you want to list.");
                  borderpane.setTop(Hb);
                  this.x=0;
              }if(s.contains("TreeItem [ value: make file ]")){
@@ -62,6 +65,7 @@ private int x=0;
                  borderpane.setCenter(null);
                  Hb.getChildren().clear();
                  Hb.getChildren().addAll(path,textField);
+                 status.setText("Enter the file path you want to make in");
                  borderpane.setTop(Hb);
                  this.x=1;
              }if(s.contains("TreeItem [ value: make folder ]")){
@@ -69,6 +73,7 @@ private int x=0;
                  borderpane.setCenter(null);
                  Hb.getChildren().clear();
                  Hb.getChildren().addAll(path,textField);
+                 status.setText("Enter the file path you want to make in");
                  borderpane.setTop(Hb);
                  this.x=2;
              }if(s.contains("TreeItem [ value: delete file ]")){
@@ -76,6 +81,7 @@ private int x=0;
                  borderpane.setCenter(null);
                  Hb.getChildren().clear();
                  Hb.getChildren().addAll(path,textField);
+                 status.setText("Enter the file path you want to delete.");
                  borderpane.setTop(Hb);
                  this.x=3;
              }if(s.contains("TreeItem [ value: delete folder ]")){
@@ -83,42 +89,46 @@ private int x=0;
                  borderpane.setCenter(null);
                  Hb.getChildren().clear();
                  Hb.getChildren().addAll(path,textField);
+                 status.setText("Enter the file path you want to delete.");
                  borderpane.setTop(Hb);
                  this.x=4;
-             }if(s.contains("TreeItem [ value: change permissons ]")){
+             }if(s.contains("TreeItem [ value: Change permissions of files ]")){
                  borderpane.setTop(null);
                  borderpane.setCenter(null);
                  Hb.getChildren().clear();
-                 VBox vb=new VBox();
+                 VBox vb=new VBox(10);
                  HBox hb2=new HBox();
                  Hb.getChildren().addAll(path,textField);
                  hb2.getChildren().addAll(permission,pertextField);
                  permission.setText("permisssion");
                  vb.getChildren().addAll(Hb,hb2);
+                 status.setText("Enter the type of permission in decimal");
                  borderpane.setTop(vb);
                  this.x=5;
-             }if(s.contains("TreeItem [ value:  create symbolic ]")){
+             }if(s.contains("TreeItem [ value: Create symbolic link files ]")){
                  borderpane.setTop(null);
                  borderpane.setCenter(null);
                  Hb.getChildren().clear();
-                 VBox vb=new VBox();
+                 VBox vb=new VBox(10);
                  HBox hb2=new HBox();
                  Hb.getChildren().addAll(path,textField);
                  permission.setText("link to");
                  hb2.getChildren().addAll(permission,pertextField);
                  vb.getChildren().addAll(Hb,hb2);
+                 status.setText("Enter the file path you want to link");
                  borderpane.setTop(vb);
                  this.x=6;
              }
          }
 
         });
-    Button submit =new Button("start");
+    Button submit =new Button("                         start                             ");
         submit.setOnMouseClicked(e->{
             if(this.x==0){
                 borderpane.setCenter(null);
+                ScrollPane s= new ScrollPane(Output);
             Output.setText(fm.listDir(textField.getText().toString()));
-            borderpane.setCenter(Output);
+            borderpane.setCenter(s);
             }if(this.x==1){
                 borderpane.setCenter(null);
                 Output.setText(fm.mkFile(textField.getText().toString()));
@@ -141,6 +151,8 @@ private int x=0;
                 String s=pertextField.getText().toString();
                 if(!s.equals("")) {
                     Output.setText(fm.changePermission(Integer.parseInt(pertextField.getText().toString()), textField.getText().toString()));
+                    }else{
+                    Output.setText("missing operand after 000");
                 }          borderpane.setCenter(Output);
             }if(this.x==6){
                 borderpane.setCenter(null);
@@ -152,15 +164,16 @@ private int x=0;
     this.setConstraints(borderpane,1,1);
     this.setConstraints(hb,0,1);
     this.setConstraints(l, 0, 0);
+    borderpane.setPadding(new Insets(0,0,0,20));
     this.getChildren().addAll(l,hb,borderpane);
 
 }
     private void setCol(GridPane gridPane)
     {
         ColumnConstraints columnConstraints = new ColumnConstraints();
-        columnConstraints.setPercentWidth(30);
+        columnConstraints.setPercentWidth(35);
         ColumnConstraints columnConstraints1 = new ColumnConstraints();
-        columnConstraints1.setPercentWidth(80);
+        columnConstraints1.setPercentWidth(65);
         gridPane.getColumnConstraints().addAll(columnConstraints,columnConstraints1);
 
     }
